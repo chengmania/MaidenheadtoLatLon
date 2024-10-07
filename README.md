@@ -9,7 +9,7 @@ Usage\
 Example\
 Notes\
 Troubleshooting\
-Contributing\
+Contributing
 
 
 Prerequisites
