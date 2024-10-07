@@ -1,0 +1,108 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Maidenhead Grid Locator</title>
+    <!-- Leaflet CSS -->
+    <link rel="stylesheet" href="https://unpkg.com/leaflet/dist/leaflet.css" />
+    <style>
+        #map {
+            height: 500px;
+            margin-top: 20px;
+        }
+        body {
+            font-family: Arial, sans-serif;
+            margin: 20px;
+        }
+        input[type="text"] {
+            padding: 5px;
+            font-size: 16px;
+            margin-right: 10px;
+        }
+        input[type="submit"] {
+            padding: 5px 10px;
+            font-size: 16px;
+        }
+        .error {
+            color: red;
+        }
+        .distance {
+            font-size: 18px;
+            margin-top: 10px;
+        }
+    </style>
+</head>
+<body>
+    <h1>Maidenhead Grid Locator</h1>
+    <form method="POST">
+        <label for="grid1">Enter Maidenhead Grid Square 1:</label>
+        <input type="text" name="grid1" id="grid1" value="{{ grid1 or '' }}" required>
+        <br><br>
+        <label for="grid2">Enter Maidenhead Grid Square 2:</label>
+        <input type="text" name="grid2" id="grid2" value="{{ grid2 or '' }}" required>
+        <br><br>
+        <input type="submit" value="Show on Map">
+    </form>
+    
+    {% if error %}
+        <p class="error">{{ error }}</p>
+    {% endif %}
+    {% if lat1 and lon1 and lat2 and lon2 %}
+        {% if distance %}
+            <p class="distance">Distance between {{ grid1 }} and {{ grid2 }}: {{ distance|round(2) }} miles</p>
+        {% endif %}
+        <div id="map"></div>
+    {% endif %}
+
+    <!-- Leaflet JS -->
+    <script src="https://unpkg.com/leaflet/dist/leaflet.js"></script>
+    {% if lat1 and lon1 and lat2 and lon2 %}
+    <script>
+        // Calculate the midpoint for centering the map
+        var latMid = ({{ lat1 }} + {{ lat2 }}) / 2;
+        var lonMid = ({{ lon1 }} + {{ lon2 }}) / 2;
+
+        // Initialize the map
+        var map = L.map('map').setView([latMid, lonMid], 5);
+
+        // Set up the OpenStreetMap layer
+        L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
+            maxZoom: 19,
+        }).addTo(map);
+
+        // Custom icons
+        var redIcon = L.icon({
+            iconUrl: '{{ url_for('static', filename='red_pin.png') }}',
+            iconSize: [38, 38],
+            iconAnchor: [19, 38],
+            popupAnchor: [0, -38]
+        });
+
+        var greenIcon = L.icon({
+            iconUrl: '{{ url_for('static', filename='green_pin.png') }}',
+            iconSize: [38, 38],
+            iconAnchor: [19, 38],
+            popupAnchor: [0, -38]
+        });
+
+        // Add markers
+        var marker1 = L.marker([{{ lat1 }}, {{ lon1 }}], {icon: redIcon}).addTo(map)
+            .bindPopup('Grid Square 1: {{ grid1 }}<br>Latitude: {{ lat1 }}<br>Longitude: {{ lon1 }}');
+
+        var marker2 = L.marker([{{ lat2 }}, {{ lon2 }}], {icon: greenIcon}).addTo(map)
+            .bindPopup('Grid Square 2: {{ grid2 }}<br>Latitude: {{ lat2 }}<br>Longitude: {{ lon2 }}');
+
+        // Draw a line between the two points
+        var latlngs = [
+            [{{ lat1 }}, {{ lon1 }}],
+            [{{ lat2 }}, {{ lon2 }}]
+        ];
+
+        var polyline = L.polyline(latlngs, {color: 'blue', weight: 1}).addTo(map);
+
+        // Adjust the map view to fit the markers and line
+        map.fitBounds(polyline.getBounds());
+    </script>
+    {% endif %}
+</body>
+</html>
