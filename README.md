@@ -1,15 +1,15 @@
 Maidenhead Grid Locator Web Application
 This web application allows users to input two Maidenhead grid squares, displays their locations on an interactive map with markers, calculates the distance between them in miles, and draws a line connecting the two points.
 
-Table of Contents
-Prerequisites
-Installation
-Project Structure
-Usage
-Example
-Notes
-Troubleshooting
-Contributing
+Table of Contents\
+Prerequisites\
+Installation\
+Project Structure\
+Usage\
+Example\
+Notes\
+Troubleshooting\
+Contributing\
 
 
 Prerequisites
