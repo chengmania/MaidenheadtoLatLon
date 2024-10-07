@@ -30,20 +30,20 @@ Alternatively, download the project files and navigate to the project directory.
 2. Create a Virtual Environment (Optional but Recommended)
 It's good practice to create a virtual environment to manage your project's dependencies.
 
-python -m venv venv
+        python -m venv venv
 Activate the virtual environment:
 
 On Windows:
 
-venv\Scripts\activate
+        venv\Scripts\activate
 On macOS and Linux:
 
-source venv/bin/activate
+        source venv/bin/activate
 
 3. Install Required Python Packages
 Install the necessary Python packages using pip:
 
-pip install flask maidenhead geopy
+        pip install flask maidenhead geopy
 
 Flask: A lightweight web application framework.
 maidenhead: A library for converting Maidenhead grid squares to latitude and longitude.
@@ -53,16 +53,18 @@ geopy: A library for calculating distances between geographic coordinates.
 Download the marker images and place them in the static folder:
 
 red_pin.png: Download here
+
 green_pin.png: Download here
+
 Save these images into the static directory within your project:
 
-maidenhead-grid-locator/
-├── mtoll.py
-├── templates/
-│   └── index.html
-└── static/
-    ├── red_pin.png
-    └── green_pin.png
+    maidenhead-grid-locator/
+    ├── mtoll.py
+    ├── templates/
+    │   └── index.html
+    └── static/
+        ├── red_pin.png
+        └── green_pin.png
 
 5. Verify Project Structure
 Your project directory should look like this:
@@ -87,7 +89,7 @@ Running the Application
 Start the Flask application by running:
 
 
-python3 mtoll.py
+    python3 mtoll.py
 
 If you're using a virtual environment, make sure it's activated.
 
@@ -129,7 +131,8 @@ Ensure that the grid squares are valid and correctly formatted.
 Dependencies
 
 If you encounter issues with package installations, ensure that you have the latest version of pip.
-Use pip install --upgrade pip to update pip if necessary.
+
+    Use pip install --upgrade pip to update pip if necessary.
 Troubleshooting
 Common Issues
 
@@ -140,16 +143,17 @@ Cause: This error occurs when the key 'grid1' is not present in request.form, me
 Solution: Ensure that the name attributes in your input fields are correctly set to grid1 and grid2 in index.html, and that the form's method is set to POST.
 
 html
-Copy code
-<form method="POST">
-    <label for="grid1">Enter Maidenhead Grid Square 1:</label>
-    <input type="text" name="grid1" id="grid1" required>
-    <br><br>
-    <label for="grid2">Enter Maidenhead Grid Square 2:</label>
-    <input type="text" name="grid2" id="grid2" required>
-    <br><br>
-    <input type="submit" value="Show on Map">
-</form>
+
+    <form method="POST">
+        <label for="grid1">Enter Maidenhead Grid Square 1:</label>
+        <input type="text" name="grid1" id="grid1" required>
+        <br><br>
+        <label for="grid2">Enter Maidenhead Grid Square 2:</label>
+        <input type="text" name="grid2" id="grid2" required>
+        <br><br>
+        <input type="submit" value="Show on Map">
+    </form>
+
 Static Files Not Loading
 
 Cause: The images (red_pin.png and green_pin.png) may not be found.
@@ -158,9 +162,8 @@ Port Already in Use
 
 Solution: If port 5000 is already in use, you can run the Flask app on a different port:
 
-bash
-Copy code
-python app.py --port 5001
+
+    python3 mtoll.py --port 5001
 Then access the application at http://127.0.0.1:5001/.
 
 Virtual Environment Issues
@@ -170,12 +173,12 @@ Debugging Tips
 
 Print Form Data
 
-Add a print statement in your app.py to see the form data being submitted:
+Add a print statement in your mtoll.py to see the form data being submitted:
 
-python
-Copy code
-if request.method == 'POST':
-    print("Form Data:", request.form)
+
+    if request.method == 'POST':
+        print("Form Data:", request.form)
+
 Check the console output when submitting the form to ensure that grid1 and grid2 are present.
 
 Browser Developer Tools
