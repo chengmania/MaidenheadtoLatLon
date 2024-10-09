@@ -72,13 +72,13 @@ Save these images into the static directory within your project:
 5. Verify Project Structure
 Your project directory should look like this:
 
-maidenhead-grid-locator/
-├── mtoll.py
-├── templates/
-│   └── index.html
-└── static/
-    ├── red_pin.png
-    └── green_pin.png
+        maidenhead-grid-locator/
+        ├── mtoll.py
+        ├── templates/
+        │   └── index.html
+        └── static/
+            ├── red_pin.png
+            └── green_pin.png
 
 mtoll.py: The main Flask application.
 
