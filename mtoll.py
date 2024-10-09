@@ -6,21 +6,20 @@ app = Flask(__name__)
 
 @app.route('/', methods=['GET', 'POST'])
 def index():
-    # Initialize variables
     lat1 = lon1 = lat2 = lon2 = None
     grid1 = grid2 = distance = None
     error = None
 
     if request.method == 'POST':
-        print("Form Data:", request.form)  # Debug statement
         grid1 = request.form.get('grid1', '').strip().upper()
         grid2 = request.form.get('grid2', '').strip().upper()
         if not grid1 or not grid2:
             error = "Please enter both grid squares."
             return render_template('index.html', error=error, grid1=grid1, grid2=grid2)
         try:
-            lat1, lon1 = mh.to_location(grid1)
-            lat2, lon2 = mh.to_location(grid2)
+            # Get center coordinates by setting center=True
+            lat1, lon1 = mh.to_location(grid1, center=True)
+            lat2, lon2 = mh.to_location(grid2, center=True)
 
             # Calculate distance in miles
             location1 = (lat1, lon1)
