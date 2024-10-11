@@ -1,4 +1,4 @@
-#Code by Chengmania writen on a Sunday in October 2024
+#Code by Chengmania written on a Sunday in October 2024
 #Code Updated and enhanced by Chris later that week
 #This code is free for use, modifcation, and enhanced
 
