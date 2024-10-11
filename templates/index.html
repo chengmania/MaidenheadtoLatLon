@@ -46,8 +46,26 @@
     <!-- Main Content -->
     <div class="content-wrapper">
         <h1 class="mt-4 mb-4 text-center">Maidenhead Grid Locator</h1>
+        <h2 class="mb-4 text-center">Get Grid Locator for City</h2>
+        <form action="/city" method="POST">
+            <div class="form-row">
+                <div class="form-group col-md-6">
+                    <label for="grid1">Enter city and state for grid locator:</label>
+                    <input
+                      type="text"
+                      class="form-control"
+                      name="city"
+                      id="city"
+                      placeholder="e.g., Philadelphia, PA"
+                      value="{{ city or '' }}"
+                      required
+                    >
+                </div>
+            </div>
+            <button type="submit" class="btn btn-primary btn-block">Get grid locator</button>
+        </form>
         <h2 class="mb-4 text-center">Calculate Distance Between Grid Squares</h2>
-        <form method="POST">
+        <form action="/" method="POST">
             <div class="form-row">
                 <div class="form-group col-md-6">
                     <label for="grid1">Enter Maidenhead Grid Square 1:</label>
@@ -88,6 +106,13 @@
                     <p><strong>{{ distance|round(2) }} miles</strong></p>
                 </div>
             {% endif %}
+            <div id="map"></div>
+        {% endif %}
+        {% if cityname and lonc and latc and gridc %}
+            <div class="distance text-center mt-4">
+                <h4>Latitude {{ latc }} and longitude {{ lonc }} of {{ cityname }}</h4>
+                <p>Grid location: <strong>{{ gridc }}</strong></p>
+            </div>
             <div id="map"></div>
         {% endif %}
     </div>
